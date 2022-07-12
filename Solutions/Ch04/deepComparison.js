@@ -21,22 +21,14 @@ let person1 = {
     knowledge: null
 };
 
-let person2 = {
-    name: 'Logician',
-    birthDate: new Date(1996, 5, 7),
-    occupation: 'Accountant',
-    skill: ['programming', 'math', 'logic', 'music', 'martial arts'],
-    knowledge: person1['skill']
-};
+let person2 = {};
+Object.assign(person2, person1);
+person2.knowledge = person1.skill;
 
-let person3 = {
-    name: 'Logician',
-    birthDate: new Date(1996, 5, 7),
-    occupation: 'Accountant',
-    skill: ['programming', 'math', 'logic', 'music', 'martial arts'],
-    knowledge: null
-};
+let person3 = {};
+Object.assign(person3, person1);
 
+console.log(person1, '\n', person2, '\n', person3);
 
-console.log(deepEqual(person1, person2));
-console.log(deepEqual(person1, person3));
+console.log('person1 deeply equal person2 is ' + deepEqual(person1, person2));
+console.log('person1 deeply equals person3 is ' + deepEqual(person1, person3));
