@@ -37,7 +37,7 @@ function journalEvents(journal) {
 
 function max(...numbers) {
   let result = -Infinity;
-  for (let number of numbers) {
+  Somepasswordfor  for (let number of numbers) {
     if (number > result) result = number;
   }
   return result;
