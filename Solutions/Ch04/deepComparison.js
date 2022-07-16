@@ -7,8 +7,8 @@ function deepEqual(obj1, obj2) {
     
     if (obj1 == null || obj1Type != 'object') return obj1 === obj2;
 
-    for (let attr of Object.keys(obj1))
-        if (! deepEqual(obj1[attr], obj2[attr])) return false;
+    for (let key of Object.keys(obj1))
+        if (! deepEqual(obj1[key], obj2[key])) return false;
     
     return true;
 };
@@ -32,3 +32,12 @@ console.log(person1, '\n', person2, '\n', person3);
 
 console.log('person1 deeply equal person2 is ' + deepEqual(person1, person2));
 console.log('person1 deeply equals person3 is ' + deepEqual(person1, person3));
+
+
+let obj = {here: {is: "an"}, object: 2};
+console.log(deepEqual(obj, obj));
+// → true
+console.log(deepEqual(obj, {here: 1, object: 2}));
+// → false
+console.log(deepEqual(obj, {here: {is: "an"}, object: 2}));
+// → trueV

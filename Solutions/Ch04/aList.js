@@ -2,25 +2,26 @@
 
 // We start with the helper function due to their atomicity
 
-function prepend(el, list) {
-    return {value: el, rest: list};
+function prepend(element, list) {
+    return {value: element, rest: list};
 } 
 
-function nth(list, i = 0) { // Default to 0th element if no index is provided
+// An iterative function of the nth function
+function nth(list, n = 0) { 
+    // Return the nth element of the given list
+    // Default to 0th element if no index is provided
     let pointer = list;
-    for (let j = 0; j < i; j++) {
-        if (pointer['rest'] == undefined) break;
+    while (n-- > 0) {
+        if (pointer['rest'] == undefined) return undefined;
         pointer = pointer['rest'];
     }
-    
     return pointer['value'];
 }
 
-// ToDo: write a recursive version of the nth function above
-function nthRecursive(list, i = 0) {
-    if (i == 0) return list['value'];
+function nthRecursive(list, n = 0) {
+    if (n == 0) return list['value'];
     if (list['rest'] == null) return undefined;
-    return nthRecursive(list['rest'], i - 1);
+    return nthRecursive(list['rest'], n - 1);
 }
 
 // A preliminary solution:
@@ -59,33 +60,71 @@ function listToArray(list) {
 
     return array;
 }
+/* ================================================================================================= */
 
-// We hereby start our testing
-let array1 = [], array2 = [1], array3 = [1, 2, 3];
+// We hereby start our testing:
 
-console.log(JSON.stringify(arrayToList(array1)));
-console.log(JSON.stringify(arrayToList(array2)));
-console.log(JSON.stringify(arrayToList(array3)));
-
-console.log('-'.repeat(72));
-
-console.log(JSON.stringify(listToArray(arrayToList(array1))));
-console.log(JSON.stringify(listToArray(arrayToList(array2))));
-console.log(JSON.stringify(listToArray(arrayToList(array3))));
+// Test: function prepend
+testObj = {'value': 'Hisham', 'rest': null};
+console.log(
+    `prepend(666, ${JSON.stringify(testObj, undefined, 4)}) = ${JSON.stringify(prepend(666, testObj), undefined, 4)})`
+);
 
 console.log('-'.repeat(72));
 
-console.log(nth(arrayToList(array1), 0));
-console.log(nth(arrayToList(array1), 2));
-console.log(nth(arrayToList(array3), 0));
-console.log(nth(arrayToList(array3), 1));
-console.log(nth(arrayToList(array3), 2));
+// Test array defined for the following tests
+let array1 = [], array2 = [0], array3 = [0, 1, 2];
+let testArrays = [array1, array2, array3];
+
+
+// Test: function nth
+for (array of testArrays)
+    console.log(
+        `nth(arrayToList(([${array}]), 0) = ${JSON.stringify(nth(arrayToList(array), 0))}`
+    );
+
+for (array of testArrays)
+    console.log(
+        `nth(arrayToList(([${array}]), 1) = ${JSON.stringify(nth(arrayToList(array), 1))}`
+    );
+
+for (array of testArrays)
+    console.log(
+        `nth(arrayToList(([${array}]), 2) = ${JSON.stringify(nth(arrayToList(array), 2))}`
+    );
 
 console.log('-'.repeat(72));
 
-console.log(nthRecursive(arrayToList(array1), 0));
-console.log(nthRecursive(arrayToList(array1), 2));
-console.log(nthRecursive(arrayToList(array2), 0));
-console.log(nthRecursive(arrayToList(array3), 0));
-console.log(nthRecursive(arrayToList(array3), 1));
-console.log(nthRecursive(arrayToList(array3), 2));
+// Test: function nthRecursive
+for (array of testArrays)
+    console.log(
+        `nthRecursive(arrayToList(([${array}]), 0) = ${JSON.stringify(nthRecursive(arrayToList(array), 0))}`
+    );
+
+for (array of testArrays)
+    console.log(
+        `nthRecursive(arrayToList(([${array}]), 1) = ${JSON.stringify(nthRecursive(arrayToList(array), 1))}`
+    );
+
+for (array of testArrays)
+    console.log(
+        `nthRecursive(arrayToList(([${array}]), 2) = ${JSON.stringify(nthRecursive(arrayToList(array), 2))}`
+    );
+
+console.log('-'.repeat(72));
+
+// Test: function arrayToList
+ for (array of testArrays)
+    console.log(
+        `arrayToList([${array}]) = ${JSON.stringify(arrayToList(array), null, 4)}`
+    );
+
+console.log('-'.repeat(72));
+
+// Test: function listToArray
+for (array of testArrays)
+    console.log(
+        `listToArray({${array}}) = ${JSON.stringify(listToArray(arrayToList(array)))}`
+    );
+
+console.log('-'.repeat(72));
